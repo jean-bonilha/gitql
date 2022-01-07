@@ -118,7 +118,7 @@ func metadataCommit(identifier string, commit *object.Commit) string {
 
 	switch identifier {
 	case "hash":
-		return commit.ID().String()
+		return commit.ID().String()[:7]
 	case "author":
 		return commit.Author.Name
 	case "author_email":
@@ -141,6 +141,16 @@ func metadataCommit(identifier string, commit *object.Commit) string {
 			message = message[0:idx]
 		}
 		return message
+		case "parents":
+			parents := ""
+			hashes := commit.ParentHashes
+			for index, hash := range hashes {
+				parents = parents + hash.String()[:7]
+				if len(hashes) - index != 1 {
+					parents = parents + ","
+				}
+			}
+			return parents
 
 	}
 	log.Fatalf("Field %s not implemented yet \n", identifier)

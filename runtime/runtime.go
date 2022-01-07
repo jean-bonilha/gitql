@@ -364,6 +364,7 @@ func PossibleTables() map[string][]string {
 			"committer_email",
 			"message",
 			"full_message",
+			"parents",
 		},
 		"refs": {
 			"name",

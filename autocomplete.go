@@ -2,7 +2,7 @@ package main
 
 func suggestColumnsFromLatest(focused string) [][]rune {
 	return suggestLatest(focused[:len(focused)-1], [][]string{
-		[]string{"hash", "date", "author", "author_email", "committer", "committer_email", "message", "full_message"},
+		[]string{"hash", "date", "author", "author_email", "committer", "committer_email", "message", "full_message", "parents"},
 		[]string{"name", "full_name", "type", "hash"},
 		[]string{"name", "url", "push_url", "owner"},
 		[]string{"name", "full_name", "hash"},

@@ -16,6 +16,7 @@ func TestSuggestColumnsFromLatest(t *testing.T) {
 		"committer_email",
 		"message",
 		"full_message",
+		"parents",
 		"name",
 		"full_name",
 	}
@@ -24,7 +25,7 @@ func TestSuggestColumnsFromLatest(t *testing.T) {
 	result := suggestColumnsFromLatest("hash,")
 	for _, v := range result {
 		if _, ok := expected[string(v)]; !ok {
-			t.Errorf("expected 'hash', 'type', 'date', 'author', 'author_email', 'committer', 'committer_email', 'message', 'full_message', 'name', 'full_name' got %s", string(v))
+			t.Errorf("expected 'hash', 'type', 'date', 'author', 'author_email', 'committer', 'committer_email', 'message', 'full_message', 'parents', 'name', 'full_name' got %s", string(v))
 		}
 	}
 }
@@ -103,7 +104,7 @@ func TestSuggestQuery(t *testing.T) {
 
 	// gitql> select [tab
 	// expected: *, name, url,  push_url, owner, full_name, hash, date, author,
-	// author_email, committer, committer_email, message, full_message, type
+	// author_email, committer, committer_email, message, full_message, parents, type
 	pattern2 := [][]rune{
 		[]rune("select"),
 		[]rune(""),
@@ -124,6 +125,7 @@ func TestSuggestQuery(t *testing.T) {
 		"committer_email",
 		"message",
 		"full_message",
+		"parents",
 		"type",
 	})
 
@@ -191,7 +193,7 @@ func TestSuggestQuery(t *testing.T) {
 	assertSuggestsQuery(t, pattern6, []string{"name", "full_name", "type", "hash"})
 
 	// gitql> select committer from commits where committer = "K" and [tab
-	// expected: hash, date, author, author_email, committer, committer_email, message, full_message
+	// expected: hash, date, author, author_email, committer, committer_email, message, full_message, parents
 	pattern7 := [][]rune{
 		[]rune("select"),
 		[]rune("committer"),
@@ -213,6 +215,7 @@ func TestSuggestQuery(t *testing.T) {
 		"committer_email",
 		"message",
 		"full_message",
+		"parents",
 	})
 
 	// gitql> select committer from commits where committer = "k" order [tab
